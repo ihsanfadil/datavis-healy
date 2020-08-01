@@ -31,3 +31,10 @@ install.packages(my_packages, repos = "http://cran.rstudio.com")
 ```{r another-package}
 devtools::install_github("kjhealy/socviz")
 ```
+
+## Appendix
+
+```{r appendix}
+sessionInfo()
+```
+
