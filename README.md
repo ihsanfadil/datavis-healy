@@ -1,1 +1,1 @@
-# Data visualization: a practical introduction by Kieran Healy
+# Data Visualization: A Practical Introduction by Kieran Healy
