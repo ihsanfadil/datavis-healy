@@ -1,0 +1,18 @@
+---
+title: "Look at data"
+author: ""
+date: "Last updated: `r format(Sys.time(), '%B %Y')`"
+output: github_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	fig.align = "center",
+	message = FALSE,
+	warning = FALSE,
+	comment = "",
+	dpi = 300
+)
+```
+
