@@ -24,6 +24,7 @@ theme_update(
 ## Plots of Ancombe’s quartet
 
 ``` r
+# Create plots
 p1 <- anscombe %>%
   ggplot(mapping = aes(x = x1, y = y1)) +
     geom_point(size = 2) +
@@ -48,7 +49,15 @@ p4 <- anscombe %>%
     geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "#6AAB9C") +
     labs(x = "x", y = "y")
 
-plot_grid(p1, p2, p3, p4, ncol = 2, labels = LETTERS[1:4])
+# Combine plots
+combined <- plot_grid(p1, p2, p3, p4, ncol = 2, labels = LETTERS[1:4])
+
+# Add a title
+title <- ggdraw() +
+  draw_label("\nAll have a correlation coefficient of 0.81\n", fontface = "bold")
+
+# Show the final plot
+plot_grid(title, combined, ncol = 1, rel_heights = c(0.1, 1))
 ```
 
 <img src="1-look-at-data_files/figure-gfm/plots-1.png" style="display: block; margin: auto;" />
