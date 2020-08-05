@@ -1,7 +1,7 @@
 ---
 title: "Look at data"
 author: ""
-date: "Last updated: `r format(Sys.time(), '%B %Y')`"
+date: "Last updated in `r format(Sys.time(), '%B %Y')`"
 output: github_document
 ---
 
@@ -21,57 +21,63 @@ knitr::opts_chunk$set(
 ```{r preface}
 # Packages
 library(tidyverse) # Wrangle and visualise data
-library(cowplot)   # Combine plots
+library(knitr)     # Tidy output
 
 # Plot setup
-theme_set(theme_minimal())
+theme_set(theme_bw())
 theme_update(
   aspect.ratio = 1,
   panel.grid.minor = element_blank(),
-  axis.text.x = element_blank(),
-  axis.text.y = element_blank(),
-  axis.ticks = element_blank(),
+  plot.title = element_text(hjust = 0.5),
+  plot.subtitle = element_text(hjust = 0.5),
   legend.position = "none"
 )
 ```
 
 ## Plots of Ancombe's quartet 
 
-```{r plots}
-# Create plots
-p1 <- anscombe %>%
-  ggplot(mapping = aes(x = x1, y = y1)) +
-    geom_point(size = 2) +
+```{r raw-data}
+# Inspect the data
+kable(anscombe)
+```
+
+```{r wrangle-data}
+# Wrangle data
+anscombe_cleaned <- anscombe %>% 
+  # Add unique identifier per observation
+  mutate(id = rownames(anscombe)) %>% 
+  
+  # Wide to long format
+  pivot_longer(cols = c(starts_with("x"), starts_with("y")),
+               names_to = "variable",
+               values_to = "value") %>% 
+  
+  # Text parsing
+  transmute(
+    id = id,
+    plot = str_sub(string = variable, start = 2, end = 2),
+    axis = str_sub(string = variable, start = 1, end = 1),
+    value = value
+  ) %>% 
+  
+  # Long to wide format
+  pivot_wider(names_from = axis, values_from = value)
+
+# Inspect the cleaned data
+kable(anscombe_cleaned)
+```
+
+```{r reproduce-plots, fig.height = 5, fig.width = 5}
+# Reproduce plots, with slight modification
+anscombe_cleaned %>% 
+  ggplot(aes(x = x, y = y)) +
+    geom_point() +
     geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "#6AAB9C") +
-    labs(x = "x", y = "y")
-
-p2 <- anscombe %>%
-  ggplot(mapping = aes(x = x2, y = y2)) +
-    geom_point(size = 2) +
-    geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "#6AAB9C") +
-    labs(x = "x", y = "y")
-
-p3 <- anscombe %>%
-  ggplot(mapping = aes(x = x3, y = y3)) +
-    geom_point(size = 2) +
-    geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "#6AAB9C") +
-    labs(x = "x", y = "y")
-
-p4 <- anscombe %>%
-  ggplot(mapping = aes(x = x4, y = y4)) +
-    geom_point(size = 2) +
-    geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "#6AAB9C") +
-    labs(x = "x", y = "y")
-
-# Combine plots
-combined <- plot_grid(p1, p2, p3, p4, ncol = 2, labels = LETTERS[1:4])
-
-# Add a title
-title <- ggdraw() +
-  draw_label("\nAll have a correlation coefficient of 0.81\n", fontface = "bold")
-
-# Show the final plot
-plot_grid(title, combined, ncol = 1, rel_heights = c(0.1, 1))
+    facet_wrap(~plot) +
+    labs(x = "\nx values",
+         y = "y values\n",
+         title = "\nPlots of Anscombe's quartet",
+         subtitle = "All have a correlation coefficient of 0.81")
 ```
 
 ## Appendix
