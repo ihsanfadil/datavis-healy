@@ -77,13 +77,17 @@ write_rds(anscombe, path = here("data", "anscombe_raw.rds"))
 anscombe_cleaned %>% 
   ggplot(aes(x = x, y = y)) +
     geom_point() +
-    geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "#6AAB9C") +
+    geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "midnightblue") +
     facet_wrap(~plot) +
     labs(x = "x values",
          y = "y values",
          caption = "Figure 1.1",
          title = "\nPlots of Anscombe's quartet",
          subtitle = "All have a correlation coefficient of 0.81")
+
+# Save the resulting graphic
+ggsave(filename = "figure-1.1.png",
+       path = here("graphics"))
 ```
 
 ## Appendix

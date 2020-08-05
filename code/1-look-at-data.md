@@ -126,7 +126,7 @@ write_rds(anscombe, path = here("data", "anscombe_raw.rds"))
 anscombe_cleaned %>% 
   ggplot(aes(x = x, y = y)) +
     geom_point() +
-    geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "#6AAB9C") +
+    geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "midnightblue") +
     facet_wrap(~plot) +
     labs(x = "x values",
          y = "y values",
@@ -136,6 +136,12 @@ anscombe_cleaned %>%
 ```
 
 <img src="1-look-at-data_files/figure-gfm/reproduce-plots-1.png" style="display: block; margin: auto;" />
+
+``` r
+# Save the resulting graphic
+ggsave(filename = "figure-1.1.png",
+       path = here("graphics"))
+```
 
 ## Appendix
 
