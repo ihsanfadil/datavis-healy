@@ -81,6 +81,7 @@ anscombe_cleaned %>%
     facet_wrap(~plot) +
     labs(x = "x values",
          y = "y values",
+         caption = "Figure 1.1",
          title = "\nPlots of Anscombe's quartet",
          subtitle = "All have a correlation coefficient of 0.81")
 ```

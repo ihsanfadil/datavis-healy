@@ -1,7 +1,7 @@
 ---
 title: "Preface"
 author: ""
-date: "Last updated: `r format(Sys.time(), '%B %Y')`"
+date: "Last updated in `r format(Sys.time(), '%B %Y')`"
 output: github_document
 ---
 
