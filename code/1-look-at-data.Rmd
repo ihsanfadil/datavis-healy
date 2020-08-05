@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
 # Packages
 library(tidyverse) # Wrangle and visualise data
 library(knitr)     # Tidy output
+library(here)      # Navigate files
 
 # Plot setup
 theme_set(theme_bw())
@@ -65,6 +66,9 @@ anscombe_cleaned <- anscombe %>%
 
 # Inspect the cleaned data
 kable(anscombe_cleaned)
+
+# Save the cleaned data
+write_rds(anscombe_cleaned, path = here("data", "anscombe_cleaned.rds"))
 ```
 
 ```{r reproduce-plots, fig.height = 5, fig.width = 5}

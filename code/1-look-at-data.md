@@ -8,6 +8,7 @@ Last updated in August 2020
 # Packages
 library(tidyverse) # Wrangle and visualise data
 library(knitr)     # Tidy output
+library(here)      # Navigate files
 
 # Plot setup
 theme_set(theme_bw())
@@ -115,6 +116,11 @@ kable(anscombe_cleaned)
 | 11 | 4    |  8 |  6.89 |
 
 ``` r
+# Save the cleaned data
+write_rds(anscombe_cleaned, path = here("data", "anscombe_cleaned.rds"))
+```
+
+``` r
 # Reproduce plots, with slight modification
 anscombe_cleaned %>% 
   ggplot(aes(x = x, y = y)) +
@@ -151,14 +157,14 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] knitr_1.28      forcats_0.5.0   stringr_1.4.0   dplyr_1.0.1    
- [5] purrr_0.3.4     readr_1.3.1     tidyr_1.1.0     tibble_3.0.3   
- [9] ggplot2_3.3.2   tidyverse_1.3.0
+ [1] here_0.1        knitr_1.28      forcats_0.5.0   stringr_1.4.0  
+ [5] dplyr_1.0.1     purrr_0.3.4     readr_1.3.1     tidyr_1.1.0    
+ [9] tibble_3.0.3    ggplot2_3.3.2   tidyverse_1.3.0
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.1.0 xfun_0.15        lattice_0.20-41  splines_4.0.1   
  [5] haven_2.3.1      colorspace_1.4-1 vctrs_0.3.2      generics_0.0.2  
- [9] htmltools_0.5.0  yaml_2.2.1       mgcv_1.8-31      blob_1.2.1      
+ [9] htmltools_0.5.0  mgcv_1.8-31      yaml_2.2.1       blob_1.2.1      
 [13] rlang_0.4.7      pillar_1.4.6     glue_1.4.1       withr_2.2.0     
 [17] DBI_1.1.0        dbplyr_1.4.4     modelr_0.1.8     readxl_1.3.1    
 [21] lifecycle_0.2.0  munsell_0.5.0    gtable_0.3.0     cellranger_1.1.0
@@ -166,9 +172,9 @@ loaded via a namespace (and not attached):
 [29] highr_0.8        broom_0.7.0      Rcpp_1.0.5       scales_1.1.1    
 [33] backports_1.1.8  jsonlite_1.6.1   farver_2.0.3     fs_1.5.0        
 [37] hms_0.5.3        digest_0.6.25    stringi_1.4.6    grid_4.0.1      
-[41] cli_2.0.2        tools_4.0.1      magrittr_1.5     crayon_1.3.4    
-[45] pkgconfig_2.0.3  Matrix_1.2-18    ellipsis_0.3.1   xml2_1.3.2      
-[49] reprex_0.3.0     lubridate_1.7.9  assertthat_0.2.1 rmarkdown_2.3   
-[53] httr_1.4.1       rstudioapi_0.11  R6_2.4.1         nlme_3.1-148    
-[57] compiler_4.0.1  
+[41] rprojroot_1.3-2  cli_2.0.2        tools_4.0.1      magrittr_1.5    
+[45] crayon_1.3.4     pkgconfig_2.0.3  Matrix_1.2-18    ellipsis_0.3.1  
+[49] xml2_1.3.2       reprex_0.3.0     lubridate_1.7.9  assertthat_0.2.1
+[53] rmarkdown_2.3    httr_1.4.1       rstudioapi_0.11  R6_2.4.1        
+[57] nlme_3.1-148     compiler_4.0.1  
 ```
