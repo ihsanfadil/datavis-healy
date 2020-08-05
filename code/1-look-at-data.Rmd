@@ -78,8 +78,8 @@ anscombe_cleaned %>%
     geom_point() +
     geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "#6AAB9C") +
     facet_wrap(~plot) +
-    labs(x = "\nx values",
-         y = "y values\n",
+    labs(x = "x values",
+         y = "y values",
          title = "\nPlots of Anscombe's quartet",
          subtitle = "All have a correlation coefficient of 0.81")
 ```
