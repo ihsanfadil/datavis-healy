@@ -116,8 +116,9 @@ kable(anscombe_cleaned)
 | 11 | 4    |  8 |  6.89 |
 
 ``` r
-# Save the cleaned data
+# Save the cleaned and raw datasets
 write_rds(anscombe_cleaned, path = here("data", "anscombe_cleaned.rds"))
+write_rds(anscombe, path = here("data", "anscombe_raw.rds"))
 ```
 
 ``` r

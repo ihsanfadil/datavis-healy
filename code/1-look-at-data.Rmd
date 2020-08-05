@@ -67,8 +67,9 @@ anscombe_cleaned <- anscombe %>%
 # Inspect the cleaned data
 kable(anscombe_cleaned)
 
-# Save the cleaned data
+# Save the cleaned and raw datasets
 write_rds(anscombe_cleaned, path = here("data", "anscombe_cleaned.rds"))
+write_rds(anscombe, path = here("data", "anscombe_raw.rds"))
 ```
 
 ```{r reproduce-plots, fig.height = 5, fig.width = 5}
