@@ -24,7 +24,7 @@ theme_update(
 ## Plots of Ancombe’s quartet
 
 ``` r
-# Inspect the data
+# Inspect the data (the raw data are readily available from R)
 kable(anscombe)
 ```
 
@@ -126,7 +126,7 @@ write_rds(anscombe, path = here("data", "anscombe_raw.rds"))
 anscombe_cleaned %>% 
   ggplot(aes(x = x, y = y)) +
     geom_point() +
-    geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "midnightblue") +
+    geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "blue3") +
     facet_wrap(~plot) +
     labs(x = "x values",
          y = "y values",
