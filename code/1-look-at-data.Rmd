@@ -1,5 +1,5 @@
 ---
-title: "Look at data"
+title: "1 Look at data"
 author: ""
 date: "Last updated in `r format(Sys.time(), '%B %Y')`"
 output: github_document
@@ -15,8 +15,6 @@ knitr::opts_chunk$set(
 	dpi = 300
 )
 ```
-
-## Preface
 
 ```{r preface}
 # Packages

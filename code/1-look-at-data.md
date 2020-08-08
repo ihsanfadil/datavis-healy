@@ -1,8 +1,6 @@
-Look at data
+1 Look at data
 ================
 Last updated in August 2020
-
-## Preface
 
 ``` r
 # Packages
