@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Install required packages
+## Before you begin
 
 ```{r install-packages}
 my_packages <- c("tidyverse", "broom", "coefplot", "cowplot",

@@ -21,7 +21,7 @@ theme_update(
 )
 ```
 
-## Plots of Ancombe’s quartet
+## 1.1 Why look at data?
 
 ``` r
 # Inspect the data (the raw data are readily available from R)

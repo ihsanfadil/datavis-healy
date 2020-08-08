@@ -2,7 +2,7 @@ Preface
 ================
 Last updated in August 2020
 
-## Install required packages
+## Before you begin
 
 ``` r
 my_packages <- c("tidyverse", "broom", "coefplot", "cowplot",
@@ -17,7 +17,7 @@ install.packages(my_packages, repos = "http://cran.rstudio.com")
 ``` 
 
 The downloaded binary packages are in
-    /var/folders/gw/g95f62ld37g0wlrvpmwds3_w0000gn/T//RtmpwFc1j9/downloaded_packages
+    /var/folders/gw/g95f62ld37g0wlrvpmwds3_w0000gn/T//Rtmp37ONrJ/downloaded_packages
 ```
 
 ``` r
