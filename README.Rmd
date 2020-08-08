@@ -1,0 +1,206 @@
+---
+title: "Data Visualization: A Practical Introduction"
+author: ""
+date: "Last updated in `r format(Sys.time(), '%B %Y')`"
+output: github_document
+---
+
+## Preface
+
+This repository provides datasets, code, and plots as shown in Kieran Healy's book, which is freely accessible at https://socviz.co. If datasets used are not readily usable and required some modification before plotting, code for cleaning the data is also available here. You can access all these data in the folder `data` where I provide the raw and cleaned datasets for future use.
+
+I use the Rmarkdown file provided by the author for taking notes while reading the book. This document will not be completely identical to the book itself since I sometimes add my own code and notes to add clarity for myself.
+
+```{r manual-setup, include = TRUE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	fig.align = "center",
+	message = FALSE,
+	warning = FALSE,
+	comment = "",
+	dpi = 300,
+	fig.width = 8,
+	fig.height = 5
+)
+```
+   
+## Data Visualization Notes
+
+This is a starter RMarkdown template to accompany *Data Visualization* (Princeton University Press, 2019). You can use it to take notes, write your code, and produce a good-looking, reproducible document that records the work you have done. At the very top of the file is a section of *metadata*, or information about what the file is and what it does. The metadata is delimited by three dashes at the start and another three at the end. You should change the title, author, and date to the values that suit you. Keep the `output` line as it is for now, however. Each line in the metadata has a structure. First the *key* ("title", "author", etc), then a colon, and then the *value* associated with the key.  
+
+## This is an RMarkdown File
+
+Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. A *code chunk* is a specially delimited section of the file. You can add one by moving the cursor to a blank line choosing Code > Insert Chunk from the RStudio menu. When you do, an empty chunk will appear (without the hashes):
+
+```{r code-chunk}
+# ```{r}
+# 
+# ```
+```
+
+
+Code chunks are delimited by three backticks (found to the left of the 1 key on US and UK keyboards) at the start and end. The opening backticks also have a pair of braces and the letter `r`, to indicate what language the chunk is written in. You write your code inside the code chunks. Write your notes and other material around them, as here. 
+
+## Before you Begin
+
+To install the tidyverse, make sure you have an Internet connection. Then *manually* run the code in the chunk below. If you knit the document if will be skipped. We do this because you only need to install these packages once, not every time you run this file. Either knit the chunk using the little green "play" arrow to the right of the chunk area, or copy and paste the text into the console window.
+
+```{r install, eval = FALSE}
+## This code will not be evaluated automatically.
+## (Notice the eval = FALSE declaration in the options section of the
+## code chunk)
+
+my_packages <- c("tidyverse", "broom", "coefplot", "cowplot",
+                 "gapminder", "GGally", "ggrepel", "ggridges", "gridExtra",
+                 "here", "interplot", "margins", "maps", "mapproj",
+                 "mapdata", "MASS", "quantreg", "rlang", "scales",
+                 "survey", "srvyr", "viridis", "viridisLite", "devtools")
+
+install.packages(my_packages, repos = "http://cran.rstudio.com")
+```
+
+## Set Up Your Project and Load Libraries
+
+To begin we must load some libraries we will be using. If we do not load them, R will not be able to find the functions contained in these libraries. The tidyverse includes ggplot and other tools. We also load the socviz and gapminder libraries.
+
+```{r setup, include = TRUE}
+## By defult, show code for all chunks in the knitted document,
+## as well as the output. To override for a particular chunk
+## use echo = FALSE in its options.
+# knitr::opts_chunk$set(echo = TRUE) 
+
+## Set the default size of figures
+# knitr::opts_chunk$set(fig.width=8, fig.height=5)  
+
+## Load the libraries we will be using
+library(gapminder) # Dataset `gapminder`
+library(here)      # Navigate files
+library(socviz)    # Package specific to this book
+library(tidyverse) # Manipulate and visualise data
+library(knitr)     # Tidy outputs
+```
+
+Notice that here, the braces at the start of the code chunk have some additional options set in them. There is the language, `r`, as before. This is required. Then there is the word `setup`, which is a label for your code chunk. Labels are useful to briefly say what the chunk does. Label names must be unique (no two chunks in the same document can have the same label) and cannot contain spaces. Then, after the comma, an option is set: `include=FALSE`. This tells R to run this code but not to include the output in the final document. 
+
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r look}
+gapminder
+```
+
+The remainder of this document contains the chapter headings for the book, and an empty code chunk in each section to get you started. Try knitting this document now by clicking the "Knit" button in the RStudio toolbar, or choosing File > Knit Document from the RStudio menu.
+
+## Look at Data
+
+```{r}
+# Inspect the data (the raw data are readily available from R)
+kable(anscombe)
+
+# Wrangle data
+anscombe_cleaned <- anscombe %>% 
+  # Add unique identifier per observation
+  mutate(id = rownames(anscombe)) %>% 
+  
+  # Wide to long format
+  pivot_longer(cols = c(starts_with("x"), starts_with("y")),
+               names_to = "variable",
+               values_to = "value") %>% 
+  
+  # Text parsing
+  transmute(
+    id = id,
+    plot = str_sub(string = variable, start = 2, end = 2),
+    axis = str_sub(string = variable, start = 1, end = 1),
+    value = value
+  ) %>% 
+  
+  # Long to wide format
+  pivot_wider(names_from = axis, values_from = value)
+
+# Inspect the cleaned data
+head(anscombe_cleaned) %>% # Show the first six observations
+  kable()
+
+# Save the cleaned and raw datasets
+write_rds(anscombe_cleaned, path = here("data", "anscombe_cleaned.rds"))
+write_rds(anscombe, path = here("data", "anscombe_raw.rds"))
+
+# Reproduce plots, with slight modification
+anscombe_cleaned %>% 
+  ggplot(aes(x = x, y = y)) +
+    geom_point() +
+    geom_smooth(formula = "y ~ x", method = "lm", se = FALSE, colour = "blue3") +
+    facet_wrap(~plot) +
+    theme_bw() +
+    theme(aspect.ratio = 1,
+          panel.grid.minor = element_blank(),
+          plot.title = element_text(hjust = 0.5),
+          plot.subtitle = element_text(hjust = 0.5),
+          legend.position = "none") +
+    labs(x = "x values",
+         y = "y values",
+         caption = "Figure 1.1",
+         title = "\nPlots of Anscombe's quartet",
+         subtitle = "All have a correlation coefficient of 0.81")
+
+# Save the resulting graphic
+ggsave(filename = "figure-1.1.png",
+       path = here("graphics"))
+```
+
+
+## Get Started
+
+```{r}
+
+```
+
+
+## Make a Plot
+
+```{r}
+
+```
+
+
+## Show the Right Numbers
+
+```{r}
+
+```
+
+
+## Graph Tables, Make Labels, Add Notes
+
+```{r}
+
+```
+
+## Work with Models
+
+```{r}
+
+```
+
+## Draw Maps
+
+```{r}
+
+```
+
+
+## Refine your Plots
+
+```{r}
+
+```
+
+## Appendix
+
+```{r appendix}
+sessionInfo()
+```
+
