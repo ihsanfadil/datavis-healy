@@ -110,7 +110,7 @@ the socviz and gapminder libraries.
 ## Load the libraries we will be using
 library(gapminder) # Dataset `gapminder`
 library(here)      # Navigate files
-library(socviz)    # Package specific to this book
+library(socviz)    # Package specific to this book (datasets, other tools)
 library(tidyverse) # Manipulate and visualise data
 library(knitr)     # Tidy outputs
 ```
