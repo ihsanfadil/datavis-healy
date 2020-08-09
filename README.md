@@ -2,6 +2,23 @@ Data Visualization: A Practical Introduction
 ================
 Last updated in August 2020
 
+  - [Preface](#preface)
+  - [Data Visualization Notes](#data-visualization-notes)
+  - [This is an RMarkdown File](#this-is-an-rmarkdown-file)
+  - [Before you Begin](#before-you-begin)
+  - [Set Up Your Project and Load
+    Libraries](#set-up-your-project-and-load-libraries)
+  - [Look at Data](#look-at-data)
+  - [Get Started](#get-started)
+  - [Make a Plot](#make-a-plot)
+  - [Show the Right Numbers](#show-the-right-numbers)
+  - [Graph Tables, Make Labels, Add
+    Notes](#graph-tables-make-labels-add-notes)
+  - [Work with Models](#work-with-models)
+  - [Draw Maps](#draw-maps)
+  - [Refine your Plots](#refine-your-plots)
+  - [Appendix](#appendix)
+
 ## Preface
 
 This repository provides datasets, code, and plots as shown in Kieran
@@ -24,8 +41,8 @@ knitr::opts_chunk$set(
     warning = FALSE,
     comment = "",
     dpi = 300,
-    fig.width = 8,
-    fig.height = 5
+    fig.width = 6,
+    fig.height = 6
 )
 ```
 

@@ -2,7 +2,9 @@
 title: "Data Visualization: A Practical Introduction"
 author: ""
 date: "Last updated in `r format(Sys.time(), '%B %Y')`"
-output: github_document
+output:
+  github_document:
+    toc: true
 ---
 
 ## Preface
@@ -19,8 +21,8 @@ knitr::opts_chunk$set(
 	warning = FALSE,
 	comment = "",
 	dpi = 300,
-	fig.width = 8,
-	fig.height = 5
+	fig.width = 6,
+	fig.height = 6
 )
 ```
    
