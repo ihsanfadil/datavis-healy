@@ -260,6 +260,208 @@ ggsave(filename = "figure-1.1.png",
 
 ## Get Started
 
+``` r
+# Everything is an object
+my_numbers <- c(1, 2, 3, 1, 3, 5, 25)
+your_numbers <- c(5, 31, 71, 1, 3, 21, 6)
+
+my_numbers
+```
+
+    [1]  1  2  3  1  3  5 25
+
+``` r
+# You do things using functions
+mean(x = my_numbers)
+```
+
+    [1] 5.714286
+
+``` r
+# ..or similarly
+mean(my_numbers)
+```
+
+    [1] 5.714286
+
+``` r
+mean(x = your_numbers)
+```
+
+    [1] 19.71429
+
+``` r
+my_summary <- summary(my_numbers)
+my_summary
+```
+
+``` 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.000   1.500   3.000   5.714   4.000  25.000 
+```
+
+``` r
+# Functions come in packagess
+table(my_numbers)
+```
+
+    my_numbers
+     1  2  3  5 25 
+     2  1  2  1  1 
+
+``` r
+sd(my_numbers)
+```
+
+    [1] 8.616153
+
+``` r
+my_numbers * 5
+```
+
+    [1]   5  10  15   5  15  25 125
+
+``` r
+my_numbers + 1
+```
+
+    [1]  2  3  4  2  4  6 26
+
+``` r
+my_numbers + my_numbers # This is called 'vectorised operation'
+```
+
+    [1]  2  4  6  2  6 10 50
+
+``` r
+# If you're not sure what an object is, ask for its class
+# Knowing an object's class tells you a lot about what you can and can't do with it
+class(my_numbers)
+```
+
+    [1] "numeric"
+
+``` r
+class(my_summary)
+```
+
+``` 
+[1] "summaryDefault" "table"         
+```
+
+``` r
+class(summary)
+```
+
+    [1] "function"
+
+``` r
+my_new_vector <- c(my_numbers, "Apple")
+my_new_vector
+```
+
+    [1] "1"     "2"     "3"     "1"     "3"     "5"     "25"    "Apple"
+
+``` r
+class(my_new_vector)
+```
+
+    [1] "character"
+
+``` r
+titanic
+```
+
+``` 
+      fate    sex    n percent
+1 perished   male 1364    62.0
+2 perished female  126     5.7
+3 survived   male  367    16.7
+4 survived female  344    15.6
+```
+
+``` r
+class(titanic)
+```
+
+    [1] "data.frame"
+
+``` r
+titanic$percent
+```
+
+    [1] 62.0  5.7 16.7 15.6
+
+``` r
+titanic_tb <- as_tibble(titanic)
+titanic_tb
+```
+
+    # A tibble: 4 x 4
+      fate     sex        n percent
+      <fct>    <fct>  <dbl>   <dbl>
+    1 perished male    1364    62  
+    2 perished female   126     5.7
+    3 survived male     367    16.7
+    4 survived female   344    15.6
+
+``` r
+# To see inside an object, ask for its structure
+str(my_numbers)
+```
+
+``` 
+ num [1:7] 1 2 3 1 3 5 25
+```
+
+``` r
+str(my_summary)
+```
+
+``` 
+ 'summaryDefault' Named num [1:6] 1 1.5 3 5.71 4 ...
+ - attr(*, "names")= chr [1:6] "Min." "1st Qu." "Median" "Mean" ...
+```
+
+``` r
+# Be patient with R, and with yourself
+ggplot(data = mpg, aes(x = displ, y = hwy)) + geom_point()
+```
+
+<img src="README_files/figure-gfm/unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+
+``` r
+# Below code does not work, place the '+' sign correctly at the end of each line
+# ggplot(data = mpg, aes(x = displ, y = hwy))
+# + geom_point()
+
+# Make your first figure
+gapminder
+```
+
+    # A tibble: 1,704 x 6
+       country     continent  year lifeExp      pop gdpPercap
+       <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
+     1 Afghanistan Asia       1952    28.8  8425333      779.
+     2 Afghanistan Asia       1957    30.3  9240934      821.
+     3 Afghanistan Asia       1962    32.0 10267083      853.
+     4 Afghanistan Asia       1967    34.0 11537966      836.
+     5 Afghanistan Asia       1972    36.1 13079460      740.
+     6 Afghanistan Asia       1977    38.4 14880372      786.
+     7 Afghanistan Asia       1982    39.9 12881816      978.
+     8 Afghanistan Asia       1987    40.8 13867957      852.
+     9 Afghanistan Asia       1992    41.7 16317921      649.
+    10 Afghanistan Asia       1997    41.8 22227415      635.
+    # … with 1,694 more rows
+
+``` r
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap, y = lifeExp))
+p + geom_point()
+```
+
+<img src="README_files/figure-gfm/unnamed-chunk-2-2.png" style="display: block; margin: auto;" />
+
 ## Make a Plot
 
 ## Show the Right Numbers
