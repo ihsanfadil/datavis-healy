@@ -40,9 +40,9 @@ knitr::opts_chunk$set(
     message = FALSE,
     warning = FALSE,
     comment = "",
-    dpi = 300,
-    fig.width = 6,
-    fig.height = 6
+    dpi = 300
+    # fig.width = 6,
+    # fig.height = 6
 )
 ```
 
@@ -245,7 +245,7 @@ anscombe_cleaned %>%
           legend.position = "none") +
     labs(x = "x values",
          y = "y values",
-         caption = "Figure 1.1",
+         caption = "Figure 1.1\n",
          title = "\nPlots of Anscombe's quartet",
          subtitle = "All have a correlation coefficient of 0.81")
 ```
